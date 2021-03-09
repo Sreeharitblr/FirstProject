@@ -35,11 +35,11 @@
            
             <button type="submit">Submit</button>
         </form>
-
+        
         <script>
-            const form = document.getElementById('form');
+            const form = document.getElementById('form'); //set form id to a const
             form.addEventListener("submit", (e) => {
-                e.preventDefault();
+                e.preventDefault();                             // event listener
                 let demo = new instanceClass(
                     document.getElementById("fname").value,
                     document.getElementById("lname").value,
