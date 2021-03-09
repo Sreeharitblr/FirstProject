@@ -40,7 +40,7 @@
         border: none;
         color: white;
         padding: 16px 32px;
-        text-decoration: none;
+        text-decoration: solid;
         margin: 4px 2px;
         cursor: pointer;
         width: 100%;
@@ -49,44 +49,65 @@
     button:hover {
         background-color: #45a049;
     }
+
+    #result {
+        width: 500px;
+        margin-left: 70px;
+        margin-top: 150px;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
 </style>
 
 <body>
-    <form id="form">
-        <table>
-            <tr>
-                <td>
-                    <label>First Name </label><input type="text" id="fname">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Last Name </label><input type="text" id="lname">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Address </label><input type="text" id="address">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Mobile Number </label><input type="text" id="mobile">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Email </label><input type="text" id="email">
-                </td>
-            </tr>
-        </table>
+    <table>
+        <tr>
+            <td>
+                <form id="form">
+                    <table>
+                        <tr>
+                            <td>
+                                <label>First Name </label><input type="text" id="fname">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Last Name </label><input type="text" id="lname">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Address </label><input type="text" id="address">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Mobile Number </label><input type="text" id="mobile">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Email </label><input type="text" id="email">
+                            </td>
+                        </tr>
+                    </table>
 
-        <button type="submit">Submit</button>
-    </form>
+                    <button type="submit">Submit</button>
+                </form>
+            </td>
+            <td>
+                <div id="result">
+                    <label id="result-label">Details</label>
+                    <ul id="Result-List">
+
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
 
     <script>
-
-
 
         const form = document.getElementById('form'); //set form id to a const
         form.addEventListener("submit", (e) => {
@@ -104,8 +125,11 @@
 
             //console.log(perDitailsobj.details);
             form.reset();
+            result();
         });
-        let perDitailsArr = [];
+
+        let perDitailsArr = []; //array to store inforation
+
         class instanceClass {
             constructor(fname, lname, address, mobile, email) {
                 this.fname = fname;
@@ -125,29 +149,45 @@
                 let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
                 console.log(this.mobile.length);
 
-                if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
-                    ;
-                    this.errorfun("number");
+                if (
+                    document.getElementById("fname").value === " " && 
+                    document.getElementById("lname").value === " " && 
+                    document.getElementById("address").value === " " &&
+                    document.getElementById("mobile").value === " " &&
+                    document.getElementById("email").value === " " 
+                ){
+                    this.errorfun("input");
 
-                } else if (this.email.match(validRegex)) {
-                    var obj = {
-                        fname: this.fname,
-                        lname: this.lname,
-                        address: this.address,
-                        mobile: this.mobile,
-                        email: this.email
-                    };
-                } else {
-                    this.errorfun("email");
-                }
+                }else if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
+                        ;
+                        this.errorfun("number");
+
+                    } else if (this.email.match(validRegex)) {
+                        var obj = {
+                            fname: this.fname,
+                            lname: this.lname,
+                            address: this.address,
+                            mobile: this.mobile,
+                            email: this.email
+                        };
+                    } else {
+                        this.errorfun("email");
+                    }
 
                 perDitailsArr.push(obj);
                 return JSON.stringify(perDitailsArr);
             } // function factory
         }
 
-
-
+        function result() {
+            perDitailsArr.forEach((element) => {
+                console.log(element);
+                var node = document.createElement("LI");
+                var textnode = document.createTextNode(element.fname + ' ' + element.lname);
+                node.appendChild(textnode);
+                document.getElementById("Result-List").appendChild(node);
+            })
+        }
 
     </script>
 </body>
