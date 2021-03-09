@@ -1,80 +1,107 @@
 <html>
-    <head>
-        <title>Demo page</title>
-    </head>
 
-    <body>
-        <form id="form">
-            <table>
-                <tr>
-                    <td>
-                        <label>First Name </label><input type="text" id="fname">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Last Name </label><input type="text" id="lname">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Address </label><input type="text" id="address"> 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Mobile Number </label><input type="text" id="mobile">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Email </label><input type="text" id="email"> 
-                    </td>
-                </tr>
-            </table>
-           
-            <button type="submit">Submit</button>
-        </form>
-        
-        <script>
-            const form = document.getElementById('form'); //set form id to a const
-            form.addEventListener("submit", (e) => {
-                e.preventDefault();                             // event listener
-                let perDitailsobj = new instanceClass(
-                    document.getElementById("fname").value,
-                    document.getElementById("lname").value,
-                    document.getElementById("address").value,
-                    document.getElementById("mobile").value,
-                    document.getElementById("email").value
-                )
-                console.log(perDitailsobj.details);
-                //console.log(perDitailsobj.details);
-            });
+<head>
+    <title>Demo page</title>
+</head>
 
-            class instanceClass{
-                constructor(fname,lname,address,monile,email){
-                    this.fname = fname;
-                    this.lname = lname;
-                    this.address = address;
-                    this.mobile = mobile;
-                    this.email = email;
-                }
-/*                get details(){
-                    //return  `name : ${this.fname} address : ${this.address}`;
-                    let obj = {
-                        fname ,
-                        lname ,
-                        address ,
-                        mobile ,
-                        email 
-                    };
-                    return obj;
-                }*/ // function factory
+<body>
+    <form id="form">
+        <table>
+            <tr>
+                <td>
+                    <label>First Name </label><input type="text" id="fname">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Last Name </label><input type="text" id="lname">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Address </label><input type="text" id="address">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Mobile Number </label><input type="text" id="mobile">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Email </label><input type="text" id="email">
+                </td>
+            </tr>
+        </table>
 
-                get details(){
+        <button type="submit">Submit</button>
+    </form>
 
-                }
+    <script>
+        const form = document.getElementById('form'); //set form id to a const
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();                             // event listener
+
+            let perDitailsobj = new instanceClass(
+                document.getElementById("fname").value,
+                document.getElementById("lname").value,
+                document.getElementById("address").value,
+                document.getElementById("mobile").value,
+                document.getElementById("email").value
+            );
+
+            console.log(perDitailsobj.details);
+            
+            //console.log(perDitailsobj.details);
+            form.reset();
+        });
+        let perDitailsArr = [];
+        class instanceClass {
+            constructor(fname, lname, address, mobile, email) {
+                this.fname = fname;
+                this.lname = lname;
+                this.address = address;
+                this.mobile = mobile;
+                this.email = email;
             }
-        </script>
-    </body>
+
+            errorfun(err) {
+                console.log("please check " + err);
+            }
+
+            //---------------- create a object and cerate a JSON data-------------------------
+            get details() {
+                //return  `name : ${this.fname} address : ${this.address}`;
+                let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+                console.log(this.mobile.length);
+
+                if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
+                    ;
+                    this.errorfun("number");
+
+                } else if (this.email.match(validRegex)) {
+                    var obj = {
+                        fname: this.fname,
+                        lname: this.lname,
+                        address: this.address,
+                        mobile: this.mobile,
+                        email: this.email
+                    };
+                } else {
+                    this.errorfun("email");
+                }
+
+                perDitailsArr.push(obj);
+                localStorage.setItem("perDitailsArr", JSON.stringify(perDitailsArr));
+                return JSON.stringify(perDitailsArr);
+            } // function factory
+        }
+
+
+
+
+
+    </script>
+</body>
+
 </html>
