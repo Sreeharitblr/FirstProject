@@ -141,6 +141,7 @@
 
             errorfun(err) {
                 console.log("please check " + err);
+                //window.alert("Empty " + err);
             }
 
             //---------------- create a object and cerate a JSON data-------------------------
@@ -150,16 +151,16 @@
                 console.log(this.mobile.length);
 
                 if (
-                    document.getElementById("fname").value === " " && 
-                    document.getElementById("lname").value === " " && 
-                    document.getElementById("address").value === " " &&
-                    document.getElementById("mobile").value === " " &&
-                    document.getElementById("email").value === " " 
+                    document.getElementById("fname").value === null && 
+                    document.getElementById("lname").value === null && 
+                    document.getElementById("address").value === null &&
+                    document.getElementById("mobile").value === null &&
+                    document.getElementById("email").value === null 
                 ){
                     this.errorfun("input");
 
                 }else if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
-                        ;
+                        
                         this.errorfun("number");
 
                     } else if (this.email.match(validRegex)) {
@@ -186,7 +187,7 @@
                 var textnode = document.createTextNode(element.fname + ' ' + element.lname);
                 node.appendChild(textnode);
                 document.getElementById("Result-List").appendChild(node);
-            })
+            })/// https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
         }
 
     </script>
