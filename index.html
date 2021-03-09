@@ -40,15 +40,15 @@
             const form = document.getElementById('form'); //set form id to a const
             form.addEventListener("submit", (e) => {
                 e.preventDefault();                             // event listener
-                let demo = new instanceClass(
+                let perDitailsobj = new instanceClass(
                     document.getElementById("fname").value,
                     document.getElementById("lname").value,
                     document.getElementById("address").value,
                     document.getElementById("mobile").value,
                     document.getElementById("email").value
                 )
-                console.log(demo.details);
-                console.log('qq');
+                console.log(perDitailsobj.details);
+                //console.log(perDitailsobj.details);
             });
 
             class instanceClass{
@@ -59,8 +59,20 @@
                     this.mobile = mobile;
                     this.email = email;
                 }
+/*                get details(){
+                    //return  `name : ${this.fname} address : ${this.address}`;
+                    let obj = {
+                        fname ,
+                        lname ,
+                        address ,
+                        mobile ,
+                        email 
+                    };
+                    return obj;
+                }*/ // function factory
+
                 get details(){
-                    return  `name : ${this.fname} address : ${this.address}`;
+
                 }
             }
         </script>
