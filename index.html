@@ -58,13 +58,17 @@
         background-color: #f2f2f2;
         padding: 20px;
     }
+
+    #Result-List {
+        text-align: center;
+    }
 </style>
 
 <body>
     <table>
         <tr>
             <td>
-                <form id="form">
+                <form id="form" onload="loading()">
                     <table>
                         <tr>
                             <td>
@@ -98,19 +102,17 @@
             </td>
             <td>
                 <div id="result">
-                    <label id="result-label">Details</label>
-                    <table >
+                    <button><a href="/home/toobler/temppp/FirstProject/result.html" style="font-size: 24px; color: ivory;" id="result-label">Details</a> </button>
+                    <!--<label style="font-size: 24px; padding-left: 210px;" id="result-label">Details</label>-->
+                    <table id="Result-List" style="align-items: center;">
                         <tr>
-                            <tr>First Name</tr>
-                            <tr>Last Name</tr>
-                            <tr>Address</tr>
-                            <tr>Mobile</tr>
-                            <tr>Email</tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Address</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
                         </tr>
                     </table>
-                    <ul id="Result-List">
-
-                    </ul>
                 </div>
             </td>
         </tr>
@@ -131,11 +133,14 @@
             );
 
             console.log(perDitailsobj.details);
-
-            //console.log(perDitailsobj.details);
+            //result();
             form.reset();
-            result();
+            
         });
+
+        function loading(){
+            result();
+        }window.onload = loading;
 
         let perDitailsArr = []; //array to store inforation
 
@@ -157,48 +162,78 @@
             get details() {
                 //return  `name : ${this.fname} address : ${this.address}`;
                 let validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-                console.log(this.mobile.length);
 
                 if (
-                    (document.forms["form"]["fname"].value == "") && 
-                    (document.forms["form"]["lname"].value == "") && 
+                    (document.forms["form"]["fname"].value == "") &&
+                    (document.forms["form"]["lname"].value == "") &&
                     (document.forms["form"]["address"].value == "") &&
                     (document.forms["form"]["mobile"].value == "") &&
-                    (document.forms["form"]["email"].value == "" )
-                ){
+                    (document.forms["form"]["email"].value == "")
+                ) {
                     this.errorfun("input");
                     return false;
 
-                }else if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
-                        
-                        this.errorfun("number");
-                        return false;
+                } else if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
 
-                    } else if (this.email.match(validRegex)) {
-                        var obj = {
-                            fname: this.fname,
-                            lname: this.lname,
-                            address: this.address,
-                            mobile: this.mobile,
-                            email: this.email
-                        };
-                    } else {
-                        this.errorfun("email");
-                        return false;
-                    }
+                    this.errorfun("number");
+                    return false;
+
+                } else if (this.email.match(validRegex)) {
+                    var obj = {
+                        fname: this.fname,
+                        lname: this.lname,
+                        address: this.address,
+                        mobile: this.mobile,
+                        email: this.email
+                    };
+                } else {
+                    this.errorfun("email");
+                    return false;
+                }
 
                 perDitailsArr.push(obj);
+                //console.log(perDitailsArr);
+                localStorage.setItem('key', JSON.stringify(perDitailsArr) );
+
                 return JSON.stringify(perDitailsArr);
+
             } // function factory
         }
+        //-----------------------------------------------Display Result---------------------------------------------------------
+
+
+        var reArraay = JSON.parse(localStorage.getItem('key'))   ;
+        //console.log("saasasas ",asd);
+        //var reArraay = [...asd];
+        // reArraay.push(asd);
+        console.log("saasasas " + reArraay);
 
         function result() {
-            perDitailsArr.forEach((element) => {
+            reArraay.forEach((element, index) => {
                 console.log(element);
-                var node = document.createElement("LI");
-                var textnode = document.createTextNode(element.fname + ' ' + element.lname);
-                node.appendChild(textnode);
-                document.getElementById("Result-List").appendChild(node);
+                console.log(index);
+
+                var td = document.createElement('td'),
+                    td1 = document.createElement('td'),
+                    td2 = document.createElement('td'),
+                    td3 = document.createElement('td'),
+                    td4 = document.createElement('td');
+
+                tr = document.createElement('tr');
+                var tble_result = document.getElementById('Result-List');
+                tble_result.appendChild(tr);
+
+                td.appendChild(document.createTextNode(element.fname));
+                td1.appendChild(document.createTextNode(element.lname));
+                td2.appendChild(document.createTextNode(element.address));
+                td3.appendChild(document.createTextNode(element.mobile));
+                td4.appendChild(document.createTextNode(element.email));
+                tr.appendChild(td);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+
             })
         }
 
