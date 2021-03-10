@@ -8,7 +8,7 @@
         width: 300px;
         margin-left: 70px;
         margin-top: 150px;
-        border-radius: 5px;
+        border-radius: 10px;
         background-color: #f2f2f2;
         padding: 20px;
     }
@@ -44,6 +44,7 @@
         margin: 4px 2px;
         cursor: pointer;
         width: 100%;
+        border-radius: 90px;
     }
 
     button:hover {
@@ -102,7 +103,8 @@
             </td>
             <td>
                 <div id="result">
-                    <button><a href="/home/toobler/temppp/FirstProject/result.html" style="font-size: 24px; color: ivory;" id="result-label">Details</a> </button>
+                    <button><a href="/home/toobler/temppp/FirstProject/result.html"
+                            style="font-size: 24px; color: ivory;" id="result-label">Details</a> </button>
                     <!--<label style="font-size: 24px; padding-left: 210px;" id="result-label">Details</label>-->
                     <table id="Result-List" style="align-items: center;">
                         <tr>
@@ -133,14 +135,14 @@
             );
 
             console.log(perDitailsobj.details);
-            //result();
+            result();
             form.reset();
-            
+
         });
 
-        function loading(){
+        function loading() {
             result();
-        }window.onload = loading;
+        } window.onload = loading;
 
         let perDitailsArr = []; //array to store inforation
 
@@ -193,7 +195,7 @@
 
                 perDitailsArr.push(obj);
                 //console.log(perDitailsArr);
-                localStorage.setItem('key', JSON.stringify(perDitailsArr) );
+                localStorage.setItem('key', JSON.stringify(perDitailsArr));
 
                 return JSON.stringify(perDitailsArr);
 
@@ -202,13 +204,23 @@
         //-----------------------------------------------Display Result---------------------------------------------------------
 
 
-        var reArraay = JSON.parse(localStorage.getItem('key'))   ;
+        var reArraay = JSON.parse(localStorage.getItem('key'));
         //console.log("saasasas ",asd);
         //var reArraay = [...asd];
         // reArraay.push(asd);
         console.log("saasasas " + reArraay);
 
         function result() {
+
+
+            /*             var row = t.parentNode.parentNode;
+                        document.getElementById("myTable").deleteRow(row.rowIndex);
+                        console.log(row); */
+            var tabl = document.getElementById('Result-List');
+
+            console.log("tbl row count", tabl.childNodes.length);
+
+
             reArraay.forEach((element, index) => {
                 console.log(element);
                 console.log(index);
