@@ -99,6 +99,15 @@
             <td>
                 <div id="result">
                     <label id="result-label">Details</label>
+                    <table >
+                        <tr>
+                            <tr>First Name</tr>
+                            <tr>Last Name</tr>
+                            <tr>Address</tr>
+                            <tr>Mobile</tr>
+                            <tr>Email</tr>
+                        </tr>
+                    </table>
                     <ul id="Result-List">
 
                     </ul>
@@ -151,17 +160,19 @@
                 console.log(this.mobile.length);
 
                 if (
-                    document.getElementById("fname").value === null && 
-                    document.getElementById("lname").value === null && 
-                    document.getElementById("address").value === null &&
-                    document.getElementById("mobile").value === null &&
-                    document.getElementById("email").value === null 
+                    (document.forms["form"]["fname"].value == "") && 
+                    (document.forms["form"]["lname"].value == "") && 
+                    (document.forms["form"]["address"].value == "") &&
+                    (document.forms["form"]["mobile"].value == "") &&
+                    (document.forms["form"]["email"].value == "" )
                 ){
                     this.errorfun("input");
+                    return false;
 
                 }else if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
                         
                         this.errorfun("number");
+                        return false;
 
                     } else if (this.email.match(validRegex)) {
                         var obj = {
@@ -173,6 +184,7 @@
                         };
                     } else {
                         this.errorfun("email");
+                        return false;
                     }
 
                 perDitailsArr.push(obj);
@@ -187,10 +199,12 @@
                 var textnode = document.createTextNode(element.fname + ' ' + element.lname);
                 node.appendChild(textnode);
                 document.getElementById("Result-List").appendChild(node);
-            })/// https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
+            })
         }
 
     </script>
 </body>
 
 </html>
+
+<!--/// https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser>
