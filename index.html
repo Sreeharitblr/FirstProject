@@ -103,7 +103,7 @@
             </td>
             <td>
                 <div id="result">
-                    <button><a href="/home/toobler/temppp/FirstProject/result.html"
+                    <button><a href="/FirstProject/result.html"
                             style="font-size: 24px; color: ivory;" id="result-label">Details</a> </button>
                     <!--<label style="font-size: 24px; padding-left: 210px;" id="result-label">Details</label>-->
                     <table id="Result-List" style="align-items: center;">
@@ -209,6 +209,8 @@
         //var reArraay = [...asd];
         // reArraay.push(asd);
         console.log("saasasas " + reArraay);
+        var a = document.querySelector('a[href="/FirstProject/result.html"]'); //or grab it by tagname etc
+            a.href = vl.substring(0, vl.lastIndexOf('/')) +'/result.html'; // path to next page
 
         function result() {
 
@@ -217,10 +219,9 @@
                         document.getElementById("myTable").deleteRow(row.rowIndex);
                         console.log(row); */
             var tabl = document.getElementById('Result-List');
-
             console.log("tbl row count", tabl.childNodes.length);
-
-
+            let vl = window.location.pathname
+            
             reArraay.forEach((element, index) => {
                 console.log(element);
                 console.log(index);

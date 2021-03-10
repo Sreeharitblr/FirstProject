@@ -12,6 +12,7 @@
         background-color: #f2f2f2;
         padding: 20px;
     }
+
     button {
         background-color: #4CAF50;
         border: none;
@@ -62,7 +63,7 @@
                     td2 = document.createElement('td'),
                     td3 = document.createElement('td'),
                     td4 = document.createElement('td');
-                    td5 = document.createElement('td');
+                td5 = document.createElement('td');
 
                 tr = document.createElement('tr');
                 var tble_result = document.getElementById('Result-List');
@@ -73,8 +74,9 @@
                 td2.appendChild(document.createTextNode(element.address));
                 td3.appendChild(document.createTextNode(element.mobile));
                 td4.appendChild(document.createTextNode(element.email));
-                var radiobtn = document.createElement('input') ;
+                var radiobtn = document.createElement('input');
                 radiobtn.type = 'radio';
+                radiobtn.id = 'radio' + index;
                 td5.appendChild(radiobtn);
 
                 tr.appendChild(td);
@@ -88,8 +90,18 @@
             })
         }
 
-        let DeleteItem = () =>{
-            console.log("fdsfsd")
+        var tabl = document.getElementById('Result-List');
+        console.log("tbl row count", tabl.childNodes.length);
+        let vl = window.location.pathname
+
+        let DeleteItem = () => {
+            for (i=0;i<=vl;i++){
+                dradio = document.getElementById('radio'+i);
+                if(document.getElementById('radio'+i).checked === true){
+                    console.log("dfsdfs");
+                }
+            }
+
         }
     </script>
 </body>
