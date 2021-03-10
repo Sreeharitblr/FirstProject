@@ -1,8 +1,22 @@
 <html>
-    <head>
-        <title>Result</title>
-    </head>
-    <body>
+
+<head>
+    <title>Result</title>
+</head>
+<style>
+        #result {
+        width: 500px;
+        margin-left: 70px;
+        margin-top: 150px;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+</style>
+
+<body>
+    <div id="result">
+        <label style="font-size: 24px; padding-left: 210px;" id="result-label">Details</label>
         <table id="Result-List" style="align-items: center;">
             <tr>
                 <th>First Name</th>
@@ -12,8 +26,48 @@
                 <th>Email</th>
             </tr>
         </table>
-        <script>
-            
-        </script>
-    </body>
+    </div>
+    <script>
+
+        function loading() {
+            result();
+        } window.onload = loading;
+
+        var reArraay = JSON.parse(localStorage.getItem('key'));
+        //console.log("saasasas ",asd);
+        //var reArraay = [...asd];
+        // reArraay.push(asd);
+        console.log("saasasas " + reArraay);
+
+        function result() {
+            reArraay.forEach((element, index) => {
+                console.log(element);
+                console.log(index);
+
+                var td = document.createElement('td'),
+                    td1 = document.createElement('td'),
+                    td2 = document.createElement('td'),
+                    td3 = document.createElement('td'),
+                    td4 = document.createElement('td');
+
+                tr = document.createElement('tr');
+                var tble_result = document.getElementById('Result-List');
+                tble_result.appendChild(tr);
+
+                td.appendChild(document.createTextNode(element.fname));
+                td1.appendChild(document.createTextNode(element.lname));
+                td2.appendChild(document.createTextNode(element.address));
+                td3.appendChild(document.createTextNode(element.mobile));
+                td4.appendChild(document.createTextNode(element.email));
+                tr.appendChild(td);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+
+            })
+        }
+    </script>
+</body>
+
 </html>
