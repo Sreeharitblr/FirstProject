@@ -161,6 +161,12 @@
                 //window.alert("Empty " + err);
             }
 
+            isoEmailCheck(mail){
+                var reArraay = JSON.parse(localStorage.getItem('key'));
+                console.log("current email " +  mail);
+                return reArraay.some(element => element.email === mail);
+            }
+
             //---------------- create a object and cerate a JSON data-------------------------
             get details() {
                 //return  `name : ${this.fname} address : ${this.address}`;
@@ -173,7 +179,7 @@
                     (document.forms["form"]["mobile"].value == "") &&
                     (document.forms["form"]["email"].value == "")
                 ) {
-                    this.errorfun("input");
+                    this.errorfun("input");     
                     return false;
 
                 } else if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
@@ -181,7 +187,7 @@
                     this.errorfun("number");
                     return false;
 
-                } else if (this.email.match(validRegex)) {
+                } else if (this.email.match(validRegex) && this.isoEmailCheck(this.email) !== true) {
                     var obj = {
                         fname: this.fname,
                         lname: this.lname,
@@ -190,13 +196,13 @@
                         email: this.email
                     };
                 } else {
-                    this.errorfun("email");
+                    this.errorfun("email Or Email is already exist");
                     return false;
                 }
 
                 perDitailsArr.push(obj);
                 //perDitailsArr[dataCount++] = obj;
-                console.log(JSON.stringify(perDitailsArr));
+                //console.log(JSON.stringify(perDitailsArr));
                 localStorage.setItem('key', JSON.stringify(perDitailsArr));
                 return JSON.stringify(perDitailsArr);
 
@@ -205,16 +211,17 @@
         //-----------------------------------------------Display Result---------------------------------------------------------
 
 
-        var reArraay = JSON.parse(localStorage.getItem('key'));
+        //var reArraay = JSON.parse(localStorage.getItem('key'));
 /*         console.log("qqqqqq ",asd);
         var reArraay = [...asd];
         reArraay.push(asd); */
-        console.log("saasasas " + reArraay);
+        //console.log("result array " + reArraay);
         let vl = window.location.pathname  ;
         var a = document.querySelector('a[href="/FirstProject/result.html"]'); //or grab it by tagname etc
             a.href = vl.substring(0, vl.lastIndexOf('/')) +'/result.html'; // path to next page
 
         function result() {
+            var reArraay = JSON.parse(localStorage.getItem('key'));
 
             var tabl = document.getElementById('Result-List');
             console.log("tbl row count", tabl.childNodes.length);
@@ -222,7 +229,6 @@
             
             reArraay.forEach((element, index) => {
                 console.log(element);
-                console.log(index);
 
                 var td = document.createElement('td'),
                     td1 = document.createElement('td'),
