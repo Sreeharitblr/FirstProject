@@ -55,8 +55,8 @@
 
         function result() {
             reArraay.forEach((element, index) => {
-                console.log(element);
-                console.log(index);
+                //console.log(element);
+                //console.log(index);
 
                 var td = document.createElement('td'),
                     td1 = document.createElement('td'),
@@ -66,9 +66,10 @@
                 td5 = document.createElement('td');
 
                 tr = document.createElement('tr');
+                tr.id = index;
                 var tble_result = document.getElementById('Result-List');
                 tble_result.appendChild(tr);
-
+                
                 td.appendChild(document.createTextNode(element.fname));
                 td1.appendChild(document.createTextNode(element.lname));
                 td2.appendChild(document.createTextNode(element.address));
@@ -91,15 +92,16 @@
         }
 
         var tabl = document.getElementById('Result-List');
-        console.log("tbl row count", tabl.childNodes.length);
-        let vl = window.location.pathname
+        console.log("tbl row count", tabl.rows[0].cells.length);
+        let rw = tabl.rows[0].cells.length;
 
         let DeleteItem = () => {
-            for (i=0;i<=vl;i++){
+            for (var i=0;i< rw;i++){
                 dradio = document.getElementById('radio'+i);
-                if(document.getElementById('radio'+i).checked === true){
-                    console.log("dfsdfs");
-                }
+                if(dradio.checked === true){
+                    tabl.deleteRow(i+1);
+                    
+                }   
             }
 
         }
