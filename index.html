@@ -103,8 +103,8 @@
             </td>
             <td>
                 <div id="result">
-                    <button><a href="/FirstProject/result.html"
-                            style="font-size: 24px; color: ivory;" id="result-label">Details</a> </button>
+                    <button><a href="/FirstProject/result.html" style="font-size: 24px; color: ivory;"
+                            id="result-label">Details</a> </button>
                     <!--<label style="font-size: 24px; padding-left: 210px;" id="result-label">Details</label>-->
                     <table id="Result-List" style="align-items: center;">
                         <tr>
@@ -135,18 +135,23 @@
             );
 
             console.log(perDitailsobj.details);
-            result();
+            //result();
             form.reset();
 
         });
 
         function loading() {
             result();
+
+            var asd = JSON.parse(localStorage.getItem('key'));
+            perDitailsArr = [...asd];
+            console.log("result arra1 " + perDitailsArr);
+
         } window.onload = loading;
 
         let perDitailsArr = []; //array to store inforation
         //let perDitailsArr = {}; //array replaced by object
-        var dataCount = 0 ;
+        var dataCount = 0;
         class instanceClass {
             constructor(fname, lname, address, mobile, email) {
                 this.fname = fname;
@@ -161,9 +166,9 @@
                 //window.alert("Empty " + err);
             }
 
-            isoEmailCheck(mail){
+            isoEmailCheck(mail) {
                 var reArraay = JSON.parse(localStorage.getItem('key'));
-                console.log("current email " +  mail);
+                console.log("current email " + mail);
                 return reArraay.some(element => element.email === mail);
             }
 
@@ -179,7 +184,7 @@
                     (document.forms["form"]["mobile"].value == "") &&
                     (document.forms["form"]["email"].value == "")
                 ) {
-                    this.errorfun("input");     
+                    this.errorfun("input");
                     return false;
 
                 } else if (typeof parseInt(this.mobile) !== 'number' && this.mobile.length !== 10) {
@@ -212,21 +217,21 @@
 
 
         //var reArraay = JSON.parse(localStorage.getItem('key'));
-/*         console.log("qqqqqq ",asd);
-        var reArraay = [...asd];
-        reArraay.push(asd); */
+        /*         console.log("qqqqqq ",asd);
+                var reArraay = [...asd];
+                reArraay.push(asd); */
         //console.log("result array " + reArraay);
-        let vl = window.location.pathname  ;
+        let vl = window.location.pathname;
         var a = document.querySelector('a[href="/FirstProject/result.html"]'); //or grab it by tagname etc
-            a.href = vl.substring(0, vl.lastIndexOf('/')) +'/result.html'; // path to next page
+        a.href = vl.substring(0, vl.lastIndexOf('/')) + '/result.html'; // path to next page
 
         function result() {
             var reArraay = JSON.parse(localStorage.getItem('key'));
 
             var tabl = document.getElementById('Result-List');
             console.log("tbl row count", tabl.childNodes.length);
-            
-            
+
+
             reArraay.forEach((element, index) => {
                 console.log(element);
 
