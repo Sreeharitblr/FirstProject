@@ -4,11 +4,21 @@
     <title>Result</title>
 </head>
 <style>
+    table {
+        border-spacing: 20px 0;
+    }
+
+    #Result-List {
+        border-spacing: 30px 0;
+        text-align: center;
+    }
+
     #result {
-        width: 500px;
-        margin-left: 70px;
+        width: 600px;
+        margin-left: 25%;
         margin-top: 150px;
-        border-radius: 5px;
+        text-align: center;
+        border-radius: 10px;
         background-color: #f2f2f2;
         padding: 20px;
     }
@@ -17,6 +27,7 @@
         background-color: #4CAF50;
         border: none;
         color: white;
+        border-radius: 10px;
         padding: 16px 32px;
         text-decoration: solid;
         margin: 4px 2px;
@@ -29,8 +40,9 @@
 
 <body>
     <div id="result">
-        <label style="font-size: 24px; padding-left: 210px;" id="result-label">Details</label>
-        <table id="Result-List" style="align-items: center;">
+        <label style="font-size: 24px;" id="result-label">Details</label>
+        <p> </p>
+        <!--         <table>
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -38,7 +50,22 @@
                 <th>Mobile</th>
                 <th>Email</th>
             </tr>
+        </table> -->
+        <table id="Result-List" style="align-items: center;">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
         </table>
+        <p> </p>
         <button id="btn_delete" onclick="DeleteItem()">Delete</button>
     </div>
     <script>
@@ -69,7 +96,7 @@
                 tr.id = index;
                 var tble_result = document.getElementById('Result-List');
                 tble_result.appendChild(tr);
-                
+
                 td.appendChild(document.createTextNode(element.fname));
                 td1.appendChild(document.createTextNode(element.lname));
                 td2.appendChild(document.createTextNode(element.address));
@@ -86,22 +113,25 @@
                 tr.appendChild(td3);
                 tr.appendChild(td4);
                 tr.appendChild(td5);
-
-
             })
         }
 
         var tabl = document.getElementById('Result-List');
-        console.log("tbl row count", tabl.rows[0].cells.length);
-        let rw = tabl.rows[0].cells.length;
 
         let DeleteItem = () => {
-            for (var i=0;i< rw;i++){
-                dradio = document.getElementById('radio'+i);
-                if(dradio.checked === true){
-                    tabl.deleteRow(i+1);
-                    
-                }   
+
+            console.log("tbl row count", tabl.rows.length);
+            let rw = tabl.rows.length;
+
+            for (var i = 0; i < rw; i++) {
+                dradio = document.getElementById('radio' + i);
+                console.log("tbl row radio", dradio);
+                if (dradio.checked === true) {
+                    console.log("tbl del row", tabl.rows[i + 1].cells[4].innerHTML);
+                    tabl.deleteRow(i);
+                } else {
+                    break;
+                }
             }
 
         }
