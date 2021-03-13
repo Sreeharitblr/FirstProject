@@ -74,16 +74,23 @@
             result();
         } window.onload = loading;
 
-        var reArraay = JSON.parse(localStorage.getItem('key'));
+        var reArraay = JSON.parse(localStorage.getItem('key')); // fetching element from localstorge()
         //console.log("saasasas ",asd);
         //var reArraay = [...asd];
         // reArraay.push(asd);
         console.log("saasasas " + reArraay);
 
+        ///---------------------------------------------------display data from localstorage() to table----------------------------------------------       
+
         function result() {
             reArraay.forEach((element, index) => {
-                //console.log(element);
+                console.log(element);
                 //console.log(index);
+
+                if (element === null) {
+                    localStorage.clear();
+                    perDitailsobj.errorfun("/ data is deleted due to some in convenious")
+                }
 
                 var td = document.createElement('td'),
                     td1 = document.createElement('td'),
@@ -118,22 +125,41 @@
 
         var tabl = document.getElementById('Result-List');
 
+        ///-----------------------------------------dalete item ftom table row and localstorage() -------------------------------
+
         let DeleteItem = () => {
-
-            console.log("tbl row count", tabl.rows.length);
             let rw = tabl.rows.length;
+            rw -= 1;
+            console.log("tbl row count", rw);
 
-            for (var i = 0; i < rw; i++) {
-                dradio = document.getElementById('radio' + i);
-                console.log("tbl row radio", dradio);
-                if (dradio.checked === true) {
-                    console.log("tbl del row", tabl.rows[i + 1].cells[4].innerHTML);
-                    tabl.deleteRow(i);
-                } else {
-                    break;
+            reArraay.forEach((element, index) => {
+                for (var i = 0; i < rw; i++) {
+                    let j = i;
+                    dradio = document.getElementById('radio' + i);
+                    console.log("tbl row radio", dradio);
+
+                    if (dradio.checked === true) {
+                        console.log("tbl del row", tabl.rows[i + 1].cells[4].innerHTML);
+
+                        if (element.email === tabl.rows[i + 1].cells[4].innerHTML) { // check each array element email vs table row email
+                            if (confirm("Delete following entrys!") == true) {
+                                delete reArraay[index];// dalete element from array
+                                console.log(reArraay);
+                                let temp = reArraay.filter(objs => objs !== null)
+                                localStorage.clear();
+                                console.log("manga" , JSON.stringify(temp));
+                                localStorage.setItem('key', JSON.stringify(temp));
+                                tabl.deleteRow(j + 1);// dalete table row
+                            }
+                        }
+                    } else {
+                        continue;
+                    }
                 }
-            }
-
+            });
+            /*             for (var i = 0; i < rows.length; i++) {
+                            if (rows[i].cells[0].tagName != 'TH') count++
+                        } */
         }
     </script>
 </body>

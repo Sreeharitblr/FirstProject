@@ -12,6 +12,7 @@
         background-color: #f2f2f2;
         padding: 20px;
     }
+
     #Result-List {
         border-spacing: 30px 0;
         text-align: center;
@@ -109,7 +110,7 @@
                 <div id="result">
                     <button><a href="/FirstProject/result.html" style="font-size: 24px; color: ivory;"
                             id="result-label">Details</a> </button>
-                            <p>                                </p>
+                    <p> </p>
                     <!--<label style="font-size: 24px; padding-left: 210px;" id="result-label">Details</label>-->
                     <table id="Result-List" style="align-items: center;">
                         <tr>
@@ -150,7 +151,7 @@
 
             var asd = JSON.parse(localStorage.getItem('key'));
             perDitailsArr = [...asd];
-            console.log("result arra1 " + perDitailsArr);
+            //console.log("result arra1 " + perDitailsArr);
 
         } window.onload = loading;
 
@@ -174,7 +175,7 @@
             isoEmailCheck(mail) {
                 var reArraay = JSON.parse(localStorage.getItem('key'));
                 console.log("current email " + mail);
-                return reArraay.some(element => element.email === mail);
+                return reArraay.some(element => element.email === mail); // check for email and if already exist then ,some() return true or false
             }
 
             //---------------- create a object and cerate a JSON data-------------------------
@@ -239,6 +240,11 @@
 
             reArraay.forEach((element, index) => {
                 console.log(element);
+
+                if (element === null) {
+                    localStorage.clear();
+                    perDitailsobj.errorfun("/ data is deleted due to some in convenious")
+                }
 
                 var td = document.createElement('td'),
                     td1 = document.createElement('td'),
